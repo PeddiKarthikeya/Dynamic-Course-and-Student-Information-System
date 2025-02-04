@@ -13,8 +13,6 @@
         <header>
             <h1>Course and Student Information</h1>
         </header>
-
-        <!-- Course Information Section -->
         <section id="courses">
             <h2>Available Courses</h2>
             <ul>
@@ -23,8 +21,6 @@
                 </li>
             </ul>
         </section>
-
-        <!-- Student Information Section -->
         <section id="students">
             <h2>Students Enrolled</h2>
             <ul>
@@ -33,8 +29,6 @@
                 </li>
             </ul>
         </section>
-
-        <!-- Course Details Modal -->
         <div id="courseDetails" ng-if="selectedCourse">
             <div class="modal">
                 <h3>{{selectedCourse.name}}</h3>
@@ -48,6 +42,7 @@
 </body>
 </html>
 
+//app.js
 angular.module("courseStudentApp", [])
   .controller("MainController", function($scope) {
     // Sample data for courses
@@ -56,21 +51,15 @@ angular.module("courseStudentApp", [])
       {id: 2, name: "Data Science", description: "Explore data analysis, machine learning, and Python."},
       {id: 3, name: "Mobile App Development", description: "Create mobile apps with React Native and Swift."}
     ];
-
-    // Sample data for students
     $scope.students = [
       {name: "Alice", email: "alice@example.com", courseId: 1},
       {name: "Bob", email: "bob@example.com", courseId: 2},
       {name: "Charlie", email: "charlie@example.com", courseId: 1},
       {name: "David", email: "david@example.com", courseId: 3}
     ];
-
-    // Function to select a course
     $scope.selectCourse = function(course) {
       $scope.selectedCourse = course;
     };
-
-    // Function to close the course details modal
     $scope.closeCourseDetails = function() {
       $scope.selectedCourse = null;
     };

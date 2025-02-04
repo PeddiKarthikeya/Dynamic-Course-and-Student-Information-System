@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Course and Student Information System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+</head>
+<body ng-app="courseStudentApp" ng-controller="MainController">
+
+    <div class="container">
+        <header>
+            <h1>Course and Student Information</h1>
+        </header>
+
+        <!-- Course Information Section -->
+        <section id="courses">
+            <h2>Available Courses</h2>
+            <ul>
+                <li ng-repeat="course in courses">
+                    <a href="#" ng-click="selectCourse(course)">{{course.name}}</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Student Information Section -->
+        <section id="students">
+            <h2>Students Enrolled</h2>
+            <ul>
+                <li ng-repeat="student in students | filter:{courseId: selectedCourse.id}">
+                    {{student.name}} - {{student.email}}
+                </li>
+            </ul>
+        </section>
+
+        <!-- Course Details Modal -->
+        <div id="courseDetails" ng-if="selectedCourse">
+            <div class="modal">
+                <h3>{{selectedCourse.name}}</h3>
+                <p>{{selectedCourse.description}}</p>
+                <button ng-click="closeCourseDetails()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+angular.module("courseStudentApp", [])
+  .controller("MainController", function($scope) {
+    // Sample data for courses
+    $scope.courses = [
+      {id: 1, name: "Web Development", description: "Learn to build websites with HTML, CSS, and JavaScript."},
+      {id: 2, name: "Data Science", description: "Explore data analysis, machine learning, and Python."},
+      {id: 3, name: "Mobile App Development", description: "Create mobile apps with React Native and Swift."}
+    ];
+
+    // Sample data for students
+    $scope.students = [
+      {name: "Alice", email: "alice@example.com", courseId: 1},
+      {name: "Bob", email: "bob@example.com", courseId: 2},
+      {name: "Charlie", email: "charlie@example.com", courseId: 1},
+      {name: "David", email: "david@example.com", courseId: 3}
+    ];
+
+    // Function to select a course
+    $scope.selectCourse = function(course) {
+      $scope.selectedCourse = course;
+    };
+
+    // Function to close the course details modal
+    $scope.closeCourseDetails = function() {
+      $scope.selectedCourse = null;
+    };
+  });
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#courseDetails {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
